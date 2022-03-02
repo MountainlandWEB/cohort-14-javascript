@@ -111,4 +111,67 @@ document.doThatOneThing = function () {
   console.log('did it');
 };
 
+setTimeout(() => {
+  console.log('hello from from the other side');
+}, Math.random() * 2000 + 1000);
 
+const pokemonPromise = getPokemon();
+
+pokemonPromise.then(displayPokemon);
+
+pokemonPromise.then((pokemon) => {
+  // modify result somehow
+  displayPokemon(pokemon);
+});
+
+console.log(pokemonPromise);
+
+function getPokemon() {
+  // async
+  const promise = new Promise((resolve, reject) => {
+    fetch('https://pokeapi.co/api/v2/pokemon?limit=20')
+      .then((response) => response.json())
+      .then((data) => resolve(data?.results));
+
+    // dissecting the lines above
+    // let fetchPromise = fetch('https://pokeapi.co/api/v2/pokemon?limit=20');
+    // let jsonPromise = fetchPromise.then((response) => response.json());
+    // jsonPromise.then((data) => resolve(data.results));
+  });
+
+  return promise;
+}
+
+function fetchPokemonDetails(pokemonName) {
+  // async
+  const promise = new Promise((resolve, reject) => {
+    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+      .then((response) => response.json())
+      .then((data) => resolve(data));
+  });
+
+  return promise;
+}
+
+function getPokemonDetails(pokemonName) {
+  // fetch the details
+  const pokeDetailsPromise = fetchPokemonDetails(pokemonName);
+  // display the details
+  pokeDetailsPromise.then((pokemonDetails) => {
+    displayPokemonDetails(pokemonDetails);
+  });
+}
+
+function displayPokemonDetails(pokemonDetails) {
+  document.getElementById(
+    pokemonDetails.name
+  ).innerHTML += `<img src="${pokemonDetails.sprites.front_shiny}">`;
+}
+
+function displayPokemon(pokemon) {
+  let pokemonHtml = '';
+  pokemon.forEach((pokemon) => {
+    pokemonHtml += `<div id="${pokemon.name}" onclick="getPokemonDetails('${pokemon.name}')">${pokemon.name}</div>`;
+  });
+  document.querySelector('#pokemon').innerHTML = pokemonHtml;
+}
