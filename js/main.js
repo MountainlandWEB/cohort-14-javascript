@@ -175,3 +175,23 @@ function displayPokemon(pokemon) {
   });
   document.querySelector('#pokemon').innerHTML = pokemonHtml;
 }
+
+
+// REST
+
+/**
+ * 
+ * GET /candy - all the candy
+ * GET /candy/snickers - for that one candy
+ * GET /candy/type/chocolate - for all chocolate candy
+ * POST /candy/cinnamon-bears - create new cinnamon bears candy
+ * PUT /candy/cinnamon-bears - replace cinnamon bears candy
+ * DELETE /candy/cinnamon-bears - delete cinnamon bears candy
+ * old way /deleteCandy?id=cinnamon-bears - delete cinnamon bears candy
+ * GET /customers - all customers
+ * GET /customers/345453456 - that one customer
+ * GET candy-store.com/customers/pending-orders - 
+ * 
+ * 
+ * 
+ */
