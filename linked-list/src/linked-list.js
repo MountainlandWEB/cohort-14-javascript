@@ -44,7 +44,18 @@ class LinkedList {
       this.size += 1;
     }
   }
-  contains() {}
+  contains(key) {
+      let current = this.head;
+      while(current != null) {
+          if(current.element.key == key) {
+              return current.element;
+          }
+          else {
+              current = current.next;
+          }
+      }
+      return null;
+  }
   remove() {}
   toString() {}
 }
