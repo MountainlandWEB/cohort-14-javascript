@@ -56,6 +56,6 @@ class LinkedList {
       }
       return null;
   }
-  remove() {}
+  remove(key) {}
   toString() {}
 }
